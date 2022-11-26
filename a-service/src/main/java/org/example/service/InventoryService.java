@@ -1,35 +1,32 @@
 package org.example.service;
 
+import lombok.AllArgsConstructor;
+import org.example.dto.PriceDto;
 import org.example.dto.ProductDto;
+import org.example.repository.InventoryRepository;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @Service
 public class InventoryService {
-    private List<ProductDto> products = new ArrayList<>();
-
-    public InventoryService(){
-        var product1 = ProductDto.builder()
-                .productId(100L)
-                .desc("Tomatoes")
-                .price(BigDecimal.valueOf(2))
-                .build();
-        var product2 = ProductDto.builder()
-                .productId(101L)
-                .desc("Potatoes")
-                .price(BigDecimal.valueOf(3))
-                .build();
-        products.add(product1);
-        products.add(product2);
-    }
+    private final InventoryRepository inventoryRepository;
+    private final PricingService pricingService;
 
     public List<ProductDto> find(Long productId) {
+        var products = inventoryRepository.find(productId);
+        var pricesMap = pricingService.find().stream()
+                .collect(Collectors.toMap(PriceDto::getProductId, Function.identity()));
+
         return products.stream()
-                //.filter(productDto -> Objects.equals(productId, productDto.getProductId()))
+                .peek(p -> {
+                    if (pricesMap.containsKey(p.getProductId())){
+                        p.setPrice(pricesMap.get(p.getProductId()).getPrice());
+                    }
+                })
                 .collect(Collectors.toList());
     }
 }
