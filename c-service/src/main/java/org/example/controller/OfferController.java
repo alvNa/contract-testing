@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static org.example.controller.PricingController.OFFERS_PATH;
+import static org.example.controller.OfferController.OFFERS_PATH;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(OFFERS_PATH)
 @Validated
-public class PricingController {
+public class OfferController {
 
     public static final String OFFERS_PATH = "/offers";
 
