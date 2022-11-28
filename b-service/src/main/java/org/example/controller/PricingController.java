@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.dto.PriceDto;
 import org.example.service.PricingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,7 @@ public class PricingController {
     @Autowired
     private final PricingService pricingService;
 
-    @GetMapping
+    @GetMapping//(value="", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PriceDto>> find(@RequestParam(value = PRODUCT_QUERY_PARAM, required = false) String productIdParam) {
         var productId= (nonNull(productIdParam) ? Long.getLong(productIdParam) : null);
         var prices = pricingService.find(productId);
