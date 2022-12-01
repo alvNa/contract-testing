@@ -20,6 +20,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <pact.version>4.0.10</pact.version>
     </properties>
 
     <dependencies>
@@ -36,6 +37,44 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-provider</artifactId>
+            <version>${pact.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-provider-junit5</artifactId>
+            <version>${pact.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-consumer-junit5</artifactId>
+            <version>${pact.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-provider</artifactId>
+            <version>${pact.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-provider-spring</artifactId>
+            <version>${pact.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-provider-junit5-spring</artifactId>
+            <version>${pact.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -55,6 +94,45 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <pact.rootDir>${project.build.directory}/pacts</pact.rootDir>
+                        <buildDirectory>${project.build.directory}</buildDirectory>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>au.com.dius.pact.provider</groupId>
+                <artifactId>maven</artifactId>
+                <version>4.4.2</version>
+                <configuration>
+                    <serviceProviders>
+                        <!-- You can define as many as you need, but each must have a unique name -->
+                        <serviceProvider>
+                            <name>providerC</name>
+                            <!-- All the provider properties are optional, and have sensible defaults (shown below) -->
+                            <protocol>http</protocol>
+                            <host>localhost</host>
+                            <port>8080</port>
+                            <!--
+                            <path>/</path>
+                            -->
+                            <consumers>
+                                <!-- Again, you can define as many consumers for each provider as you need, but each must have a unique name -->
+                                <consumer>
+                                    <name>consumerC</name>
+                                    <!--  currently supports a file path using pactSource or a URL using pactUrl -->
+                                    <pactSource>${project.build.directory}/pacts/provider-consumer-c.json</pactSource>
+                                </consumer>
+                            </consumers>
+                        </serviceProvider>
+                    </serviceProviders>
                 </configuration>
             </plugin>
         </plugins>

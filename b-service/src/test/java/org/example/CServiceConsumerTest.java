@@ -23,15 +23,15 @@ import static org.example.CServiceConsumerTest.PROVIDER_NAME;
 @PactTestFor(providerName = PROVIDER_NAME, hostInterface="localhost")
 public class CServiceConsumerTest {
 
-    public static final String PROVIDER_NAME = "test_provider";
+    public static final String PROVIDER_NAME = "c-service";
     public static final String OFFERS_PATH = "/offers";
 
     private Map<String, String> headers = MapUtils.putAll(new HashMap<>(), new String[] {
             "Content-Type", MediaType.APPLICATION_JSON_VALUE
     });
 
-    @Pact(provider=PROVIDER_NAME, consumer="test_consumer")
-    public RequestResponsePact createPact(PactDslWithProvider builder) {
+    @Pact(provider=PROVIDER_NAME, consumer="b-service")
+    public RequestResponsePact createContract(PactDslWithProvider builder) {
         return builder
                 .given("test GET")
                 .uponReceiving("GET REQUEST")

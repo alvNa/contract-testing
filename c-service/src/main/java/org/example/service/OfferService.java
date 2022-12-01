@@ -35,4 +35,9 @@ public class OfferService {
     public List<OfferDto> find() {
         return offers;
     }
+
+    public void save(OfferDto offerDto) {
+        offers.add(offerDto);
+    }
+
 }

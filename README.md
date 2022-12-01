@@ -22,3 +22,25 @@ A -> B -> C
 - Cucumber
 - Spring Cloud Contract
 
+- PACT Server (Broker)
+Install with docker
+docker run -d -p 8080:8080 -p 20000-20010:20000-20010 uglyog/pact-jvm-server
+
+curl -X POST http://localhost:8080/create?state=NoUsers \
+-d '{ "provider": { "name": "Animal_Service"} }'
+
+-Response
+{"port": 20008}
+
+curl -X POST http://localhost:8080/complete -d '{ "port": 20008}'
+
+curl -X POST http://localhost:8080/publish -d '{ "consumer": "Zoo", "consumerVersion": "0.0.1", "provider": "Animal_Service" }'
+
+--Diagnostics
+curl -X GET http://localhost:8080
+
+## Links:
+  
+  - https://docs.pact.io/implementation_guides/jvm/pact-jvm-server#building-a-distribution-bundle
+  - https://docs.pact.io/pact_broker
+  - 

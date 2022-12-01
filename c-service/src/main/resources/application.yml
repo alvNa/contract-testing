@@ -2,5 +2,5 @@ pactbroker:
   host: localhost
   port: 8080
   auth:
-    username: broker-user
-    password: broker.password
+    username: ""
+    password: ""
