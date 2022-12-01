@@ -1,6 +1,8 @@
 - Start up a PACT broker using a PostgreSQL
+docker compose up -d
 
-docker compose up
+- Shutdown PACT brocker
+docker-compose down
 
 For using in the projects
 

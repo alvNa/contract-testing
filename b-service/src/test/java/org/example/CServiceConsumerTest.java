@@ -20,17 +20,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.example.CServiceConsumerTest.PROVIDER_NAME;
 
 @ExtendWith(PactConsumerTestExt.class)
-@PactTestFor(providerName = PROVIDER_NAME, hostInterface="localhost")
+@PactTestFor(providerName = PROVIDER_NAME)
 public class CServiceConsumerTest {
 
     public static final String PROVIDER_NAME = "c-service";
+    public static final String CONSUMER_NAME = "b-service";
     public static final String OFFERS_PATH = "/offers";
 
     private Map<String, String> headers = MapUtils.putAll(new HashMap<>(), new String[] {
             "Content-Type", MediaType.APPLICATION_JSON_VALUE
     });
 
-    @Pact(provider=PROVIDER_NAME, consumer="b-service")
+    @Pact(provider=PROVIDER_NAME, consumer=CONSUMER_NAME)
     public RequestResponsePact createContract(PactDslWithProvider builder) {
         return builder
                 .given("test GET")
@@ -40,7 +41,7 @@ public class CServiceConsumerTest {
                 //.headers(headers)
                 .willRespondWith()
                 .status(200)
-                .body("{\"offerId\": 1, \"productId\": 100 }")
+                .body("{\"offerId\": 1, \"productId\": 100, \"promotionDesc\": \"Black Friday\" }")
                 .toPact();
     }
 
@@ -53,6 +54,6 @@ public class CServiceConsumerTest {
         // then
         assertThat(response.getStatusCode().value()).isEqualTo(200);
         //assertThat(response.getHeaders().get("Content-Type").contains("application/json")).isTrue();
-        assertThat(response.getBody()).contains("offerId","1","productId","100");
+        assertThat(response.getBody()).contains("offerId","1","productId","100","promotionDesc","Black Friday");
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @Provider("C Service")
-@PactBroker(host = "localhost", port = "8080")
+@PactBroker
 public class CProviderContractTest {
 
     @TestTemplate
