@@ -1,4 +1,4 @@
-package org.example;
+package example;
 
 import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
@@ -17,21 +17,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.example.BServiceConsumerTest.PROVIDER_NAME;
-import static org.example.controller.PricingController.PRICES_PATH;
 
 @ExtendWith(PactConsumerTestExt.class)
-@PactTestFor(providerName = PROVIDER_NAME, hostInterface="localhost")
+@PactTestFor(providerName = BServiceConsumerTest.PROVIDER_NAME)
 public class BServiceConsumerTest {
-    public static final String OFFERS_PATH = "/offers";
-    public static final String PROVIDER_NAME = "test_provider";
+
+    public static final String PROVIDER_NAME = "b-service";
+    public static final String CONSUMER_NAME = "a-service";
+    public static final String PRICES_PATH = "/prices";
 
     private Map<String, String> headers = MapUtils.putAll(new HashMap<>(), new String[] {
             "Content-Type", MediaType.APPLICATION_JSON_VALUE
     });
 
-    @Pact(provider=PROVIDER_NAME, consumer="test_consumer")
-    public RequestResponsePact createPact(PactDslWithProvider builder) {
+    @Pact(provider=PROVIDER_NAME, consumer=CONSUMER_NAME)
+    public RequestResponsePact createContract(PactDslWithProvider builder) {
         return builder
                 .given("test GET")
                 .uponReceiving("GET REQUEST")
