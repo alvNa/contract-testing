@@ -1,0 +1,8 @@
+pactbroker:
+  host: localhost
+  port: 9092
+  auth:
+    username: broker-user
+    password: broker.password
+c-service:
+  url: http://localhost:8083

@@ -61,6 +61,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-provider-junit5-spring</artifactId>
+            <version>${pact.version}</version>
+        </dependency>
+
         <!--
         <dependency>
             <groupId>au.com.dius</groupId>
@@ -113,6 +119,16 @@
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>au.com.dius.pact.provider</groupId>
+                <artifactId>maven</artifactId>
+                <version>4.4.2</version>
+                <configuration>
+                    <pactBrokerUrl>http://localhost:9292</pactBrokerUrl>
+                </configuration>
+            </plugin>
+
             <!--
             <plugin>
                 <groupId>au.com.dius</groupId>

@@ -1,0 +1,37 @@
+{
+  "provider": {
+    "name": "test_provider"
+  },
+  "consumer": {
+    "name": "test_consumer"
+  },
+  "interactions": [
+    {
+      "description": "GET REQUEST",
+      "request": {
+        "method": "GET",
+        "path": "/offers"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "offerId": 1,
+          "productId": 100
+        }
+      },
+      "providerStates": [
+        {
+          "name": "test GET"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "4.0.10"
+    }
+  }
+}
