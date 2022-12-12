@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Repository
@@ -15,7 +16,7 @@ public class PricingRepository {
     public PricingRepository(){
         var product1 = PriceDto.builder()
                 .productId(100L)
-                .price(BigDecimal.valueOf(2))
+                .price(BigDecimal.valueOf(3))
                 .build();
         var product2 = PriceDto.builder()
                 .productId(101L)
@@ -25,9 +26,13 @@ public class PricingRepository {
         pricings.add(product2);
     }
 
+    public List<PriceDto> findAll() {
+        return pricings;
+    }
+
     public List<PriceDto> find(Long productId) {
         return pricings.stream()
-                //.filter(productDto -> Objects.equals(productId, productDto.getProductId()))
+                .filter(productDto -> Objects.equals(productId, productDto.getProductId()))
                 .collect(Collectors.toList());
     }
 }

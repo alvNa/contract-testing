@@ -22,6 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <pact.version>4.0.10</pact.version>
         <pact.broker.url>http://localhost:9292</pact.broker.url>
+        <pact.verifier.publishResults>true</pact.verifier.publishResults>
     </properties>
 
     <dependencies>
@@ -68,31 +69,11 @@
             <version>${pact.version}</version>
         </dependency>
 
-        <!--
-        <dependency>
-            <groupId>au.com.dius</groupId>
-            <artifactId>pact-jvm-consumer-java8</artifactId>
-            <version>${pact.version}</version>
-            <scope>test</scope>
-        </dependency>
--->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.apache.httpcomponents.client5</groupId>
-            <artifactId>httpclient5</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.github.http-builder-ng</groupId>
-            <artifactId>http-builder-ng-apache</artifactId>
-            <version>1.0.4</version>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -127,35 +108,25 @@
                 <version>4.4.2</version>
                 <configuration>
                     <pactBrokerUrl>${pact.broker.url}</pactBrokerUrl>
+
+                    <serviceProviders>
+                        <serviceProvider>
+                            <name>b-service</name>
+                            <protocol>http</protocol>
+                            <host>localhost</host>
+                            <port>8082</port>
+                            <path>/</path>
+
+                            <consumers>
+                                <consumer>
+                                    <name>a-service</name>
+                                    <pactUrl>http://localhost:9292/pacticipants/a-service</pactUrl>
+                                </consumer>
+                            </consumers>
+                        </serviceProvider>
+                    </serviceProviders>
                 </configuration>
             </plugin>
-
-            <!--
-            <plugin>
-                <groupId>au.com.dius</groupId>
-                <artifactId>pact-jvm-provider-maven</artifactId>
-                <version>${pact.version}</version>
-                <configuration>
-                    <pactDirectory>target/pacts</pactDirectory>
-                    <pactBrokerUrl>http://localhost</pactBrokerUrl>
-                    <projectVersion>1.0.100</projectVersion>
-                    <trimSnapshot>true</trimSnapshot>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>au.com.dius</groupId>
-                <artifactId>pact-jvm-provider-maven</artifactId>
-                <version>${pact.version}</version>
-                <configuration>
-                    <pactDirectory>target/pacts</pactDirectory>
-                    <pactBrokerUrl>http://pact-broker-your-domain.internal/</pactBrokerUrl>
-                    <projectVersion>${project.version}</projectVersion>
-                    <trimSnapshot>true</trimSnapshot>
-                </configuration>
-            </plugin>
-
-            -->
         </plugins>
     </build>
 </project>

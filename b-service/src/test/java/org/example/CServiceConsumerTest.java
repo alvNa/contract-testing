@@ -6,6 +6,7 @@ import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
 import au.com.dius.pact.core.model.RequestResponsePact;
 import au.com.dius.pact.core.model.annotations.Pact;
+import lombok.SneakyThrows;
 import org.apache.commons.collections4.MapUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -41,8 +42,9 @@ public class CServiceConsumerTest {
     });
 
 
+    @SneakyThrows
     @Pact(provider=PROVIDER_NAME, consumer=CONSUMER_NAME)
-    public RequestResponsePact createContract(PactDslWithProvider builder) throws IOException {
+    public RequestResponsePact createContract(PactDslWithProvider builder) {
         var body = Files.readString(cServiceBodyResourceFile.getFile().toPath());
 
         return builder
