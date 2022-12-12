@@ -4,7 +4,10 @@ docker compose up -d
 - Shutdown PACT brocker
 docker-compose down
 
-For using in the projects
+Open browser
+http://localhost:9292/
 
+For using in the projects
 mvn test
 mvn pact:publish
+mvn pact:verify

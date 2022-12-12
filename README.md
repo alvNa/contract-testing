@@ -22,9 +22,17 @@ A -> B -> C
 - Cucumber
 - Spring Cloud Contract
 
-- PACT Server (Broker)
-Install with docker
-docker run -d -p 8080:8080 -p 20000-20010:20000-20010 uglyog/pact-jvm-server
+- [Install PACT Server Broker](./pact-broker/README.md)
+
+
+cd b-service/
+mvn test
+mvn pact:publish
+
+cd c-service/
+mvn test
+mvn pact:verify -Dpact.verifier.publishResults=true
+
 
 curl -X POST http://localhost:8080/create?state=NoUsers \
 -d '{ "provider": { "name": "Animal_Service"} }'

@@ -12,7 +12,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class WebFluxConfig implements WebFluxConfigurer {
 
     @Bean
-    public WebClient getWebClient(@Value("${app.server.url}") String baseUrl) {
+    public WebClient getWebClient(@Value("${c-service.url}") String baseUrl) {
         return WebClient.builder().baseUrl(baseUrl)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 //.filter(errorHandler())
