@@ -24,9 +24,13 @@ A -> B -> C
 
 - [Install PACT Server Broker](./pact-broker/README.md)
 
+cd a-service/
+mvn test
+mvn pact:publish
 
 cd b-service/
 mvn test
+mvn pact:verify -Dpact.verifier.publishResults=true
 mvn pact:publish
 
 cd c-service/

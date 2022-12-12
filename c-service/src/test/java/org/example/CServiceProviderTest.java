@@ -7,10 +7,10 @@ import au.com.dius.pact.provider.junit.loader.PactBroker;
 import au.com.dius.pact.provider.junit5.PactVerificationContext;
 import au.com.dius.pact.provider.spring.junit5.MockMvcTestTarget;
 import au.com.dius.pact.provider.spring.junit5.PactVerificationSpringProvider;
+import lombok.extern.slf4j.Slf4j;
 import org.example.controller.OfferController;
 import org.example.dto.OfferDto;
 import org.example.service.OfferService;
-import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestTemplate;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,6 +29,7 @@ import static org.mockito.Mockito.when;
 @WebMvcTest(controllers = {OfferController.class})
 @Provider(PROVIDER_NAME)
 @PactBroker
+@Slf4j
 public class CServiceProviderTest {
     public static final String PROVIDER_NAME = "c-service";
     public static final String STATE_1 = "get-offer";
@@ -43,11 +44,13 @@ public class CServiceProviderTest {
     @TestTemplate
     @ExtendWith(PactVerificationSpringProvider.class)
     void pactVerificationTestTemplate(PactVerificationContext context) {
+        var consumer = context.getConsumerName();
+        log.info("consumer {} is verificating the contract", consumer);
         context.verifyInteraction();
     }
 
     @BeforeEach
-    void beforeEach(PactVerificationContext context) {
+    public void beforeEach(PactVerificationContext context) {
         context.setTarget(new MockMvcTestTarget(mockMvc));
     }
 

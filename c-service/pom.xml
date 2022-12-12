@@ -59,6 +59,7 @@
             <scope>test</scope>
         </dependency>
 
+        <!--
         <dependency>
             <groupId>au.com.dius</groupId>
             <artifactId>pact-jvm-provider</artifactId>
@@ -70,7 +71,7 @@
             <artifactId>pact-jvm-provider-spring</artifactId>
             <version>${pact.version}</version>
         </dependency>
-
+        -->
         <dependency>
             <groupId>au.com.dius</groupId>
             <artifactId>pact-jvm-provider-junit5-spring</artifactId>
@@ -130,10 +131,6 @@
                                 <!-- Again, you can define as many consumers for each provider as you need, but each must have a unique name -->
                                 <consumer>
                                     <name>b-service</name>
-                                    <!--  currently supports a file path using pactSource or a URL using pactUrl -->
-                                    <!--
-                                    <pactSource>path/to/provider1-consumer1-pact.json</pactSource>
-                                    -->
                                     <pactUrl>http://localhost:9292/pacticipants/b-service</pactUrl>
                                 </consumer>
                             </consumers>
