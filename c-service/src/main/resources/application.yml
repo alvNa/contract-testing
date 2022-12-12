@@ -1,6 +1,8 @@
 pactbroker:
   host: localhost
-  port: 9092
+  port: 9292
   auth:
     username: ""
     password: ""
+server:
+  port: 8083

@@ -21,6 +21,8 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <pact.version>4.0.10</pact.version>
+        <pact.broker.url>http://localhost:9292</pact.broker.url>
+        <pact.verifier.publishResults>true</pact.verifier.publishResults>
     </properties>
 
     <dependencies>
@@ -112,23 +114,27 @@
                 <artifactId>maven</artifactId>
                 <version>4.4.2</version>
                 <configuration>
+                    <pactBrokerUrl>${pact.broker.url}</pactBrokerUrl>
+
                     <serviceProviders>
                         <!-- You can define as many as you need, but each must have a unique name -->
                         <serviceProvider>
-                            <name>providerC</name>
+                            <name>c-service</name>
                             <!-- All the provider properties are optional, and have sensible defaults (shown below) -->
                             <protocol>http</protocol>
                             <host>localhost</host>
-                            <port>8080</port>
-                            <!--
+                            <port>8083</port>
                             <path>/</path>
-                            -->
+
                             <consumers>
                                 <!-- Again, you can define as many consumers for each provider as you need, but each must have a unique name -->
                                 <consumer>
-                                    <name>consumerC</name>
+                                    <name>b-service</name>
                                     <!--  currently supports a file path using pactSource or a URL using pactUrl -->
-                                    <pactSource>${project.build.directory}/pacts/provider-consumer-c.json</pactSource>
+                                    <!--
+                                    <pactSource>path/to/provider1-consumer1-pact.json</pactSource>
+                                    -->
+                                    <pactUrl>http://localhost:9292/pacticipants/b-service</pactUrl>
                                 </consumer>
                             </consumers>
                         </serviceProvider>

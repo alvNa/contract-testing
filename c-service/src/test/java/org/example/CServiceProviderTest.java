@@ -10,6 +10,7 @@ import au.com.dius.pact.provider.spring.junit5.PactVerificationSpringProvider;
 import org.example.controller.OfferController;
 import org.example.dto.OfferDto;
 import org.example.service.OfferService;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestTemplate;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,13 +19,20 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
+import static org.example.CServiceProviderTest.PROVIDER_NAME;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
 @WebMvcTest(controllers = {OfferController.class})
-@Provider("OfferProvider")
+@Provider(PROVIDER_NAME)
 @PactBroker
-public class CustomerPactVerificatonTest {
+public class CServiceProviderTest {
+    public static final String PROVIDER_NAME = "c-service";
+    public static final String STATE_1 = "get-offer";
+    public static final String STATE_2 = "save-offer";
 
     @MockBean
     private OfferService offerService;
@@ -43,8 +51,19 @@ public class CustomerPactVerificatonTest {
         context.setTarget(new MockMvcTestTarget(mockMvc));
     }
 
-    @State("Create New Customer")
-    void createNewCustomer() {
+    @State(STATE_1)
+    void getOffer() {
+        var offer1 = OfferDto.builder()
+                .offerId(1L)
+                .productId(100L)
+                .promotionDesc("Black Friday")
+                .build();
+
+        when(offerService.find()).thenReturn(List.of(offer1));
+    }
+
+    @State(STATE_2)
+    void saveOffer() {
         doNothing().when(offerService).save(any(OfferDto.class));
     }
 }

@@ -17,19 +17,19 @@ public class OfferService {
                 .productId(100L)
                 .from(LocalDate.of(2022,11,20))
                 .to(LocalDate.of(2022,11,28))
-                .promotionDesc("Black week")
+                .promotionDesc("Black Friday")
                 .percentage(30)
                 .build();
-        var offer2 = OfferDto.builder()
+        /*var offer2 = OfferDto.builder()
                 .offerId(1L)
                 .productId(101L)
                 .from(LocalDate.of(2022,12,01))
                 .to(LocalDate.of(2022,12,31))
                 .promotionDesc("Christians discount")
                 .percentage(15)
-                .build();
+                .build();*/
         offers.add(offer1);
-        offers.add(offer2);
+        //offers.add(offer2);
     }
 
     public List<OfferDto> find() {
