@@ -2,7 +2,6 @@ package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.dto.ProductDto;
-import org.example.repository.InventoryRepository;
 import org.example.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

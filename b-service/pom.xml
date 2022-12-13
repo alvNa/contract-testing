@@ -20,6 +20,9 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <pact.version>4.0.10</pact.version>
+        <pact.broker.url>http://localhost:9292</pact.broker.url>
+        <pact.verifier.publishResults>true</pact.verifier.publishResults>
     </properties>
 
     <dependencies>
@@ -40,6 +43,32 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-provider</artifactId>
+            <version>${pact.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-provider-junit5</artifactId>
+            <version>${pact.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-consumer-junit5</artifactId>
+            <version>${pact.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-provider-junit5-spring</artifactId>
+            <version>${pact.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -59,6 +88,43 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <pact.rootDir>${project.build.directory}/pacts</pact.rootDir>
+                        <buildDirectory>${project.build.directory}</buildDirectory>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>au.com.dius.pact.provider</groupId>
+                <artifactId>maven</artifactId>
+                <version>4.4.2</version>
+                <configuration>
+                    <pactBrokerUrl>${pact.broker.url}</pactBrokerUrl>
+
+                    <serviceProviders>
+                        <serviceProvider>
+                            <name>b-service</name>
+                            <protocol>http</protocol>
+                            <host>localhost</host>
+                            <port>8082</port>
+                            <path>/</path>
+
+                            <consumers>
+                                <consumer>
+                                    <name>a-service</name>
+                                    <pactUrl>http://localhost:9292/pacticipants/a-service</pactUrl>
+                                </consumer>
+                            </consumers>
+                        </serviceProvider>
+                    </serviceProviders>
                 </configuration>
             </plugin>
         </plugins>

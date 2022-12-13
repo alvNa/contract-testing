@@ -1,1 +1,8 @@
-/Users/AlvaroNav/Documents/github-alvNa/contract-testing-2/a-service/src/main/java/org/example/Main.java
+/Users/AlvaroNav/Documents/github-alvNa/contract-testing-2/a-service/src/main/java/org/example/dto/ProductDto.java
+/Users/AlvaroNav/Documents/github-alvNa/contract-testing-2/a-service/src/main/java/org/example/dto/PriceDto.java
+/Users/AlvaroNav/Documents/github-alvNa/contract-testing-2/a-service/src/main/java/org/example/config/WebFluxConfig.java
+/Users/AlvaroNav/Documents/github-alvNa/contract-testing-2/a-service/src/main/java/org/example/repository/InventoryRepository.java
+/Users/AlvaroNav/Documents/github-alvNa/contract-testing-2/a-service/src/main/java/org/example/InventoryApp.java
+/Users/AlvaroNav/Documents/github-alvNa/contract-testing-2/a-service/src/main/java/org/example/service/InventoryService.java
+/Users/AlvaroNav/Documents/github-alvNa/contract-testing-2/a-service/src/main/java/org/example/controller/InventoryController.java
+/Users/AlvaroNav/Documents/github-alvNa/contract-testing-2/a-service/src/main/java/org/example/service/PricingService.java

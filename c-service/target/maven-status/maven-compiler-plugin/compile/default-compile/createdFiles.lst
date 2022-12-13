@@ -1,1 +1,5 @@
-org/example/Main.class
+org/example/dto/OfferDto.class
+org/example/OfferApp.class
+org/example/controller/OfferController.class
+org/example/service/OfferService.class
+org/example/dto/OfferDto$OfferDtoBuilder.class

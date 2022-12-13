@@ -1,0 +1,10 @@
+pactbroker:
+  host: localhost
+  port: 9292
+  auth:
+    username: ""
+    password: ""
+server:
+  port: 8082
+c-service:
+  url: http://localhost:8083
