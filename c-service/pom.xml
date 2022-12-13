@@ -45,33 +45,6 @@
             <artifactId>pact-jvm-provider</artifactId>
             <version>${pact.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>au.com.dius</groupId>
-            <artifactId>pact-jvm-provider-junit5</artifactId>
-            <version>${pact.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>au.com.dius</groupId>
-            <artifactId>pact-jvm-consumer-junit5</artifactId>
-            <version>${pact.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!--
-        <dependency>
-            <groupId>au.com.dius</groupId>
-            <artifactId>pact-jvm-provider</artifactId>
-            <version>${pact.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>au.com.dius</groupId>
-            <artifactId>pact-jvm-provider-spring</artifactId>
-            <version>${pact.version}</version>
-        </dependency>
-        -->
         <dependency>
             <groupId>au.com.dius</groupId>
             <artifactId>pact-jvm-provider-junit5-spring</artifactId>

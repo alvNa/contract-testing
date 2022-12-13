@@ -9,7 +9,8 @@ Service C (offers)
 A -> B -> C
 
 [GET] /inventory
-{"productId" : 100,
+{
+"productId" : 100,
  "desc" : "tomatoes"
  "price" : 2
 },
@@ -19,40 +20,35 @@ A -> B -> C
 }
 
 - PACT
-- Cucumber
 - Spring Cloud Contract
 
 - [Install PACT Server Broker](./pact-broker/README.md)
 
-cd a-service/
-mvn test
-mvn pact:publish
+  * Start PACT broker
+    - docker compose -f pact-broker/docker-compose.yml up -d 
+    - open http://localhost:9292/ in the browser
 
-cd b-service/
-mvn test
-mvn pact:verify -Dpact.verifier.publishResults=true
-mvn pact:publish
+  * Start services B and C
+    - cd c-service && mvn spring-boot:run
+    - cd b-service && mvn spring-boot:run
 
-cd c-service/
-mvn test
-mvn pact:verify -Dpact.verifier.publishResults=true
+  * Consumer test A service
+    - cd a-service
+    - mvn clean test pact:publish
+    
+  * Consumer and provider test B service
+    - cd ../b-service
+    - mvn clean test pact:publish
+    
+  *  Verify provider test B service
+    - cd ../b-service
+    - mvn pact:verify -Dpact.verifier.publishResults=true
 
-
-curl -X POST http://localhost:8080/create?state=NoUsers \
--d '{ "provider": { "name": "Animal_Service"} }'
-
--Response
-{"port": 20008}
-
-curl -X POST http://localhost:8080/complete -d '{ "port": 20008}'
-
-curl -X POST http://localhost:8080/publish -d '{ "consumer": "Zoo", "consumerVersion": "0.0.1", "provider": "Animal_Service" }'
-
---Diagnostics
-curl -X GET http://localhost:8080
+  *  Provider test C service and verify
+    - cd ../c-service
+    - mvn clean test pact:verify -Dpact.verifier.publishResults=true
 
 ## Links:
   
   - https://docs.pact.io/implementation_guides/jvm/pact-jvm-server#building-a-distribution-bundle
   - https://docs.pact.io/pact_broker
-  - 
