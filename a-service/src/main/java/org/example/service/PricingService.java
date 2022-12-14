@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,9 +27,13 @@ public class PricingService {
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<PriceDto>>(){});
 
-        List<PriceDto> prices = pricesResult.block();
-
-        return prices;
+        try {
+            var prices = pricesResult.block();
+            return prices;
+        }
+        catch (Exception ex){
+            return new ArrayList<>();
+        }
     }
 
 }

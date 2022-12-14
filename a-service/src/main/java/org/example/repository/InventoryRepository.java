@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -27,9 +29,13 @@ public class InventoryRepository {
         products.add(product2);
     }
 
-    public List<ProductDto> find(Long productId) {
+    public Optional<ProductDto> find(Long productId) {
         return products.stream()
-                //.filter(productDto -> Objects.equals(productId, productDto.getProductId()))
-                .collect(Collectors.toList());
+                .filter(productDto -> Objects.equals(productId, productDto.getProductId()))
+                .findFirst();
+    }
+
+    public List<ProductDto> findAll() {
+        return products;
     }
 }

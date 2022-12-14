@@ -1,4 +1,4 @@
-package example;
+package org.example.pact;
 
 import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
