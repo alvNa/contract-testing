@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Repository
 public class PricingRepository {
@@ -30,9 +30,9 @@ public class PricingRepository {
         return pricings;
     }
 
-    public List<PriceDto> find(Long productId) {
+    public Optional<PriceDto> find(Long productId) {
         return pricings.stream()
                 .filter(productDto -> Objects.equals(productId, productDto.getProductId()))
-                .collect(Collectors.toList());
+                .findFirst();
     }
 }

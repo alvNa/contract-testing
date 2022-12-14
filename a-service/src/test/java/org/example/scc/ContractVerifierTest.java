@@ -18,7 +18,7 @@ public class ContractVerifierTest extends BaseTestClass {
     private Resource aServiceBodyResourceFile;
 
     @Test
-    public void validate_shouldReturnEvenWhenRequestParamIsEven() throws Exception {
+    public void validateShouldReturnProduct() throws Exception {
         // given:
         MockMvcRequestSpecification request = given();
 
@@ -28,7 +28,6 @@ public class ContractVerifierTest extends BaseTestClass {
                 .get("/products/100");
 
         // then:
-        //assertThat(response.statusCode()).isEqualTo(200);
         Assertions.assertEquals(200, response.statusCode());
         // and:
         var jsonPath = response.getBody().jsonPath();
@@ -36,7 +35,6 @@ public class ContractVerifierTest extends BaseTestClass {
         Assertions.assertEquals(100,jsonPath.getInt("productId"));
         Assertions.assertEquals("Tomatoes",jsonPath.getString("desc"));
         Assertions.assertEquals(2,jsonPath.getInt("price"));
-
     }
 
     @SneakyThrows

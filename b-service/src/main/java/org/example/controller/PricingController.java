@@ -29,15 +29,14 @@ public class PricingController {
     @Autowired
     private final PricingService pricingService;
 
-    /*@GetMapping(PRICES_PATH)
+    @GetMapping(PRICES_PATH)
     public ResponseEntity<List<PriceDto>> findAll() {
         var prices = pricingService.findAll();
         return ResponseEntity.ok(prices);
-    }*/
+    }
 
     @GetMapping(PRICE_PATH)
-    public ResponseEntity<List<PriceDto>> find(@PathVariable Long productId) {
-        //var productId= (nonNull(productIdParam) ? Long.getLong(productIdParam) : null);
+    public ResponseEntity<PriceDto> find(@PathVariable Long productId) {
         var prices = pricingService.find(productId);
         return ResponseEntity.ok(prices);
     }

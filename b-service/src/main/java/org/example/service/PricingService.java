@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -24,19 +25,20 @@ public class PricingService {
         var offersMap = offerService.find().stream()
                 .collect(Collectors.toMap(OfferDto::getProductId, Function.identity()));
 
-        return combinePricingAmdOffers(pricings, offersMap);
+        return combinePricingAndOffers(pricings, offersMap);
     }
 
-    public List<PriceDto> find(Long productId) {
-        var pricings = pricingRepository.find(productId);
-        var offersMap = offerService.find().stream()
-                .collect(Collectors.toMap(OfferDto::getProductId, Function.identity()));
+    public PriceDto find(Long productId) {
+        var maybePricing = pricingRepository.find(productId);
+        var maybeOffer = offerService.find().stream()
+                .filter(o -> productId.equals(o.getProductId()))
+                .findFirst();
 
-        return combinePricingAmdOffers(pricings, offersMap);
+        return combinePriceAndOffer(maybePricing, maybeOffer);
     }
 
     @NotNull
-    private static List<PriceDto> combinePricingAmdOffers(List<PriceDto> pricings, Map<Long, OfferDto> offersMap) {
+    private static List<PriceDto> combinePricingAndOffers(List<PriceDto> pricings, Map<Long, OfferDto> offersMap) {
         return pricings.stream()
                 .peek(p -> {
                     if (offersMap.containsKey(p.getProductId())) {
@@ -50,5 +52,19 @@ public class PricingService {
                 .collect(Collectors.toList());
     }
 
+    private static PriceDto combinePriceAndOffer(Optional<PriceDto> maybePrice, Optional<OfferDto> maybeOffer) {
+        if (maybePrice.isPresent()){
+            var price = maybePrice.get();
+            if(maybeOffer.isPresent()){
+                var offer = maybeOffer.get();
+                var currentPrice = price.getPrice();
+                var discount = BigDecimal.valueOf((double) offer.getPercentage() / 100);
+                var newPrice = currentPrice.subtract(currentPrice.multiply(discount));
 
+                price.setPrice(newPrice);
+            }
+            return price;
+        }
+        else return null;
+    }
 }
