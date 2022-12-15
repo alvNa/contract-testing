@@ -2,13 +2,15 @@
 
 This project is a PoC to check the different technologies related with the contract testing in the microservices scope.
 
-Service A (products)
-Service B (pricing)
-Service C (offers)
+* Service A (products)
+* Service B (pricing)
+* Service C (offers)
 
+The example's flow is this:
 A -> B -> C
 
-[GET] /products
+- Endpoints Service A
+  * [GET] /products
 ```
 [
   {
@@ -26,9 +28,12 @@ A -> B -> C
 
 - PACT
 - Spring Cloud Contract
+- [Install PACT Broker Server](./pact-broker/README.md)
+- [Install PACT Broker CLI](https://docs.pact.io/pact_broker/client_cli/readme)
+  - gem 'pact_broker-client'
+- * Install Docker CLI[Install PACT Broker Docker CLI](https://docs.pact.io/pact_broker/client_cli/readme)
 
-- [Install PACT Server Broker](./pact-broker/README.md)
-
+Commands:
   * Start PACT broker
     - docker compose -f pact-broker/docker-compose.yml up -d 
     - open http://localhost:9292/ in the browser
@@ -52,6 +57,8 @@ A -> B -> C
   *  Provider test C service and verify
     - cd ../c-service
     - mvn clean test pact:verify -Dpact.verifier.publishResults=true
+
+  
 
 ## Links:
   
