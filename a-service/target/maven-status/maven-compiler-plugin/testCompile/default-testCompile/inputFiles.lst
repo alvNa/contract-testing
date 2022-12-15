@@ -1,1 +1,6 @@
-/Users/AlvaroNav/Documents/github-alvNa/contract-testing-2/a-service/src/test/java/example/BServiceConsumerTest.java
+/Users/AlvaroNav/Documents/github-alvNa/contract-testing-2/a-service/src/test/java/org/example/scc/FakeProductsController.java
+/Users/AlvaroNav/Documents/github-alvNa/contract-testing-2/a-service/src/test/java/org/example/scc/ContractVerifierTest.java
+/Users/AlvaroNav/Documents/github-alvNa/contract-testing-2/a-service/src/test/java/org/example/pact/BServiceConsumerTest.java
+/Users/AlvaroNav/Documents/github-alvNa/contract-testing-2/a-service/src/test/java/org/example/scc/BaseTestClass.java
+/Users/AlvaroNav/Documents/github-alvNa/contract-testing-2/a-service/src/test/java/org/example/scc/ProductsControllerIntegrationTest.java
+/Users/AlvaroNav/Documents/github-alvNa/contract-testing-2/a-service/target/generated-test-sources/contracts/org/example/scc/PackageTest.java

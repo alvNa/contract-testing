@@ -1,7 +1,7 @@
 org/example/service/PricingService$1.class
 org/example/dto/ProductDto$ProductDtoBuilder.class
 org/example/config/WebFluxConfig.class
-org/example/controller/InventoryController.class
+org/example/controller/ProductController.class
 org/example/repository/InventoryRepository.class
 org/example/service/PricingService.class
 org/example/InventoryApp.class

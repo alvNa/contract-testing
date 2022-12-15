@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.example.controller.ProductController.PRODUCTS_PATH;
-import static org.example.service.PricingService.PRICES_PATH;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -24,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureJsonTesters
 @AutoConfigureStubRunner(
         stubsMode = StubRunnerProperties.StubsMode.LOCAL,
-        ids = "com.baeldung.spring.cloud:spring-cloud-contract-producer:+:stubs:8090")
+        ids = "org.example:a-service:+:stubs:8090")
 public class ProductsControllerIntegrationTest {
 
     @Autowired
